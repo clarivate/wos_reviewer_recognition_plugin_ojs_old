@@ -1,4 +1,4 @@
-# OJS 3.0 - 3.3 Web of Science Reviewer Recognition Service Plugin
+# OJS 3.1 - 3.3 Web of Science Reviewer Recognition Service Plugin
 Developed and maintained by: Clarivate with the support from PLANet Systems Group.
 
 ### About
@@ -8,7 +8,7 @@ This plugin provides the ability to send and publish reviews to Web of Science R
 This plugin is licensed under the GNU General Public License v3.
 
 ### System Requirements
-- OJS 3.0 - 3.3 (see relevant release)
+- OJS 3.1 - 3.3 (see relevant release)
 - CURL support for PHP.
 - ZipArchive support for PHP.
 
