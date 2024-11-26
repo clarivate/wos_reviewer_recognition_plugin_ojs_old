@@ -58,7 +58,6 @@
   <message key="plugins.generic.wosrrs.export.next.reviewerEmailed">Web of Science has emailed you with a link to claim this review or you can click on the button below.</message>
   <message key="plugins.generic.wosrrs.export.next.setAutoClaim">To skip this step in future please select "Automatically add reviews from partnered journals" in your Web of Science Researcher Profile settings.</message>
   <message key="plugins.generic.wosrrs.export.next.linkClick">You have opted out of receiving Web of Science emails, to claim this review you must click the link below.</message>
-  <message key="plugins.generic.wosrrs.export.backToReviewPage">Back to review page</message>
 
   <message key="plugins.generic.wosrrs.export.error.alreadyExported">Review has already been exported to Web of Science</message>
   <message key="plugins.generic.wosrrs.export.error.reviewNotSubmitted">You must submit your review before you can export it to Web of Science</message>
@@ -84,7 +83,7 @@
         If the reviewer opts in to get recognition, data will be securely transmitted to Web of Science upon the review's submission. The reviewer will receive an email (at the email address they registered with the journal) containing a link to claim their review.
       </p>
       <p>
-        Reviewers will be asked to log into Web of Science and the review will be added to their account. Reviewers can select "Automatically add reviews from partnered journals" in their Web of Science Researcher Profile settings to eliminate step.
+        Reviewers will be asked to log into Web of Science and the review will be added to their account. Reviewers can select "Automatically add reviews from partnered journals" in their Web of Science Researcher Profile settings to eliminate this step.
       </p>
       <p>
         Web of Science won't publish review content unless both the journal and the reviewer allow it.

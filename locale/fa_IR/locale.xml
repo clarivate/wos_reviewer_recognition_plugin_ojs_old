@@ -7,12 +7,12 @@
   * Copyright (c) 2024 Clarivate
   * Distributed under the GNU GPL v3.
   *
-  * Localization strings
+  * Localization strings for the fa_IR (Persian) locale.
   -->
 
 <locale full_name="Farsi" name="fa_IR">
 
-    <message key="plugins.generic.wosrrs.displayName">پلاگین پابلون</message>
+    <message key="plugins.generic.wosrrs.displayName">افزونه Web of Science Reviewer Recognition Service</message>
     <message key="plugins.generic.wosrrs.description">این پلاگین اجازه ارسال و انتشار نظرات داوری به پابلون را می دهد</message>
 
     <message key="plugins.generic.wosrrs.button.submitExportReview">ارسال داوری من به پابلون</message>
