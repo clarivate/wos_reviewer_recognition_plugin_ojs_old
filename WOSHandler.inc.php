@@ -34,7 +34,7 @@ class WOSHandler extends Handler {
     function exportReview($args, $request) {
         $plugin =self::$plugin;
         $templateMgr =& TemplateManager::getManager();
-        $templateMgr->addStyleSheet('wos-base', Request::getBaseUrl() . '/' . $plugin->getStyleSheet());
+        $templateMgr->addStyleSheet('wos-base', $request->getBaseUrl() . '/' . $plugin->getStyleSheet());
 
         $reviewId = intval($args[0]);
 
@@ -48,7 +48,7 @@ class WOSHandler extends Handler {
 
         $reviewerId = $reviewSubmission->getReviewerId();
 
-        $user =& Request::getUser();
+        $user =& $request->getUser();
 
         if ($exported) {
             // Check that the review hasn't been exported already
