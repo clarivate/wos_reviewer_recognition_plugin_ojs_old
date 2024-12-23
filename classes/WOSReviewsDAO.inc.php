@@ -30,7 +30,6 @@ class WOSReviewsDAO extends DAO {
         if ($result->RecordCount() != 0) {
             $returner =& $this->_returnWOSReviewsFromRow($result->GetRowAssoc(false));
         }
-        $result->Close();
         return $returner;
     }
 
@@ -188,7 +187,6 @@ class WOSReviewsDAO extends DAO {
 
         $returner = isset($result->fields[0]) && $result->fields[0] != 0 ? $result->fields[0] : null;
 
-        $result->Close();
         unset($result);
 
         return $returner;
@@ -210,12 +208,12 @@ class WOSReviewsDAO extends DAO {
             )
         );
 
-        $returner = isset($result->fields[0]) && $result->fields[0] != 0 ? $result->fields[0] : null;
+        $row = $result->current();
+        $publons_reviews_id = $row ? $row->publons_reviews_id : null;
 
-        $result->Close();
         unset($result);
 
-        return $returner;
+        return $publons_reviews_id;
     }
 
     /**

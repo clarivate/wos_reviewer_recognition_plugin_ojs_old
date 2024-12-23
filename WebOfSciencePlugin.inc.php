@@ -13,7 +13,6 @@
  */
 
 import('lib.pkp.classes.plugins.GenericPlugin');
-import('lib.pkp.classes.site.VersionCheck');
 
 class WebOfSciencePlugin extends GenericPlugin {
 
@@ -66,50 +65,25 @@ class WebOfSciencePlugin extends GenericPlugin {
     }
 
     /**
-     * Get the version of OJS code
-     * @return string
-    */
-    function getVersion() {
-        $codeVersion = VersionCheck::getCurrentCodeVersion();
-        return $codeVersion->getVersionString();
-    }
-
-    /**
-     * Compare the current ojs version is later than a specific version
-     * @return boolean
-    */
-    function isCurrentVersionLaterThan($compareWith) {
-        $currentVersionNumbers = explode('.', $this->getVersion());
-        $compareWithVersionNumbers = explode('.', $compareWith);
-
-        foreach (range(0, sizeof($compareWithVersionNumbers)-1) as $index) {
-            if (intval($currentVersionNumbers[$index]) > intval($compareWithVersionNumbers[$index])) {
-                return true;
-            } elseif (intval($currentVersionNumbers[$index]) < intval($compareWithVersionNumbers[$index])) {
-                return false;
-            }
-        }
-        return false;
-    }
-
-    /**
      * @see Plugin::getTemplatePath()
      */
     function getTemplatePath($inCore = false) {
-        if ($this->isCurrentVersionLaterThan('3.1.1.4')) {
-            $bathPath = Core::getBaseDir();
-            return 'file:' . $bathPath . DIRECTORY_SEPARATOR . parent::getTemplatePath() . DIRECTORY_SEPARATOR;
-        } else {
-            return parent::getTemplatePath() . 'templates' . DIRECTORY_SEPARATOR;
-        }
+        $bathPath = Core::getBaseDir();
+        return 'file:' . $bathPath . DIRECTORY_SEPARATOR . parent::getTemplatePath() . DIRECTORY_SEPARATOR;
     }
 
     /**
      * @see Plugin::getInstallSchemaFile()
      * @return string
+     * @copydoc PKPPlugin::getInstallMigration()
+     * This function only work from OJS 3.3.0-6
      */
-    function getInstallSchemaFile() {
-        return $this->getPluginPath() . DIRECTORY_SEPARATOR . 'schema.xml';
+//    function getInstallSchemaFile() {
+//        return $this->getPluginPath() . DIRECTORY_SEPARATOR . 'schema.xml';
+//    }
+    function getInstallMigration() {
+        $this->import('classes.WOSMigration');
+        return new WOSMigration();
     }
 
     /**
@@ -192,7 +166,7 @@ class WebOfSciencePlugin extends GenericPlugin {
 
     function handleRequest($hookName, $params) {
         $page =& $params[0];
-        $request = Application::getRequest();
+        $request = Application::get()->getRequest();
         AppLocale::requireComponents();
         if ($page == 'reviewer' && $this->getEnabled()) {
             $op =& $params[1];
@@ -216,7 +190,7 @@ class WebOfSciencePlugin extends GenericPlugin {
     function handleTemplateDisplay($hookName, $args) {
         if ($this->getEnabled()) {
             $templateMgr =& $args[0];
-            $request = PKPApplication::getRequest();
+            $request = Application::get()->getRequest();
 
             // Assign our private stylesheet, for front and back ends.
             $templateMgr->addStyleSheet(
@@ -244,11 +218,7 @@ class WebOfSciencePlugin extends GenericPlugin {
             }
 
             if ($filterName !== '') {
-                if ($this->isCurrentVersionLaterThan('3.1.1.4')) {
-                    $templateMgr->registerFilter('output', array(&$this, $filterName));
-                } else {
-                    $templateMgr->register_outputfilter(array(&$this, $filterName));
-                }
+                $templateMgr->registerFilter('output', array(&$this, $filterName));
             }
         }
 
@@ -288,11 +258,7 @@ class WebOfSciencePlugin extends GenericPlugin {
             }
         }
 
-        if ($this->isCurrentVersionLaterThan('3.1.1.4')) {
-            $templateMgr->unregisterFilter('output', 'step3SubmissionOutputFilter');
-        } else {
-            $templateMgr->unregister_outputfilter('step3SubmissionOutputFilter');
-        }
+        $templateMgr->unregisterFilter('output', 'step3SubmissionOutputFilter');
 
         return $output;
     }
@@ -320,13 +286,9 @@ class WebOfSciencePlugin extends GenericPlugin {
 
             $templateMgr =& TemplateManager::getManager();
 
-            if ($this->isCurrentVersionLaterThan('3.1.1.4')) {
-                $templateMgr->unregisterFilter('output', array(&$this, 'completedSubmissionOutputFilter'));
-            } else {
-                $templateMgr->unregister_outputfilter(array(&$this, 'completedSubmissionOutputFilter'));
-            }
+            $templateMgr->unregisterFilter('output', array(&$this, 'completedSubmissionOutputFilter'));
 
-            $request = Application::getRequest();
+            $request = Application::get()->getRequest();
             $router = $request->getRouter();
 
             import('lib.pkp.classes.linkAction.request.AjaxModal');
@@ -349,14 +311,6 @@ class WebOfSciencePlugin extends GenericPlugin {
         }
 
         return $output;
-    }
-
-    /**
-     * Get whether we're running php 5
-     * @return boolean
-     */
-    function php5Installed() {
-        return version_compare(PHP_VERSION, '5.0.0', '>=');
     }
 
     /**
