@@ -70,7 +70,7 @@ class WOSForm extends Form {
     /**
      * @see Form::execute()
      */
-    function execute() {
+    function execute(...$functionArgs) {
         $plugin =& $this->_plugin;
         $plugin->updateSetting($this->_journalId, 'auth_token', $this->getData('auth_token') , 'string');
         $plugin->updateSetting($this->_journalId, 'auth_key', $this->getData('auth_key'), 'string');
