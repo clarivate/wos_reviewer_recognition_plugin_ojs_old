@@ -28,7 +28,7 @@ class WOSForm extends Form {
      * @param $journalId int
      * @see Form::Form()
      */
-    function WOSForm(&$plugin, $journalId) {
+    function __construct(&$plugin, $journalId) {
         $this->_plugin =& $plugin;
         $this->_journalId = $journalId;
 
@@ -70,11 +70,11 @@ class WOSForm extends Form {
     /**
      * @see Form::execute()
      */
-    function execute() {
+    function execute(...$functionArgs) {
         $plugin =& $this->_plugin;
         $plugin->updateSetting($this->_journalId, 'auth_token', $this->getData('auth_token') , 'string');
         $plugin->updateSetting($this->_journalId, 'auth_key', $this->getData('auth_key'), 'string');
-        $request = PKPApplication::getRequest();
+        $request = Application::get()->getRequest();
         $currentUser = $request->getUser();
         $notificationMgr = new NotificationManager();
         $notificationMgr->createTrivialNotification($currentUser->getId(), NOTIFICATION_TYPE_SUCCESS, array('contents' => __('plugins.generic.wosrrs.notifications.settingsUpdated')));
