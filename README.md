@@ -3,6 +3,7 @@ Developed and maintained by: Clarivate with the support from PLANet Systems Grou
 
 ### About
 This plugin provides the ability to send and publish reviews to Web of Science Researcher Profiles (formerly known as Publons, https://webofscience.com) from OJS hosted journals.
+For OJS 3.4 and later versions, see the following repository: https://github.com/clarivate/wos_reviewer_recognition_plugin_ojs_3
 
 ### License
 This plugin is licensed under the GNU General Public License v3.
@@ -13,6 +14,8 @@ This plugin is licensed under the GNU General Public License v3.
 - ZipArchive support for PHP.
 
 ### Installation
+Generally, this plugin should be available for the supported versions in OJS's plugin gallery. However, it can also be installed manually if needed.
+
 To install the plugin:
  - Download the `tar.gz` plugin file from https://github.com/clarivate/wos_reviewer_recognition_plugin_ojs_old/releases
  - On your OJS site go to Settings > Website > Plugins > Upload a New Plugin, select the file you downloaded and click "Save"
@@ -20,6 +23,12 @@ To install the plugin:
  - Set up correct credentials to post reviews to Web of Science in the "Connection" tab under plugin
    - Enter the Authorization Token of the Web of Science Researcher Profile user <b>who has API access to Reviewer Recognition Service</b>. Authorization Token can be found here: https://publons.com/api/v2 (note: you need to be logged in to see this).
    - Enter the Journal Token provided by Clarivate
+  
+To update your current Publons branded plugin to this one:
+ - note down authorization and journal tokens from the Publons plugin,
+ - delete Publons plugin,
+ - install this plugin and enable it following the steps above,
+ - ensure correct tokens are entered in the Connection tab of the plugin.
 
 ### Usage
 For the plugin to work, the journal should be an official partner of Web of Science Reviewer Recognition Service. Please see information about purchasing this service [here](https://clarivate.com/products/scientific-and-academic-research/research-publishing-solutions/reviewer-recognition-service/), or <a href="mailto:reviewservices@clarivate.com">email us</a> to start giving your reviewers recognition.
